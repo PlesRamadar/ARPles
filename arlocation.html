@@ -25,17 +25,19 @@
         <!-- Kursor disesuaikan agar fuse: false (klik instan) untuk sentuhan layar HP -->
         <a-entity cursor="fuse: false; rayOrigin: mouse;" raycaster="objects: .clickable"></a-entity>
 
-        <!-- Menggunakan a-box pipih sebagai pengganti a-image agar ketebalannya terdeteksi oleh raycaster -->
-        <!-- Memindahkan gps-entity-place langsung ke objek untuk menghindari konflik Wrapper & look-at -->
-        <a-box 
-            id="my-image" 
-            src="assets/poster.jpg" 
-            class="clickable" 
-            gesture-handler="minScale: 1; maxScale: 10"
-            width="3" height="4" depth="0.1"
-            gps-entity-place="latitude: -8.221436798254762; longitude: 114.36766775848618;"
-            look-at="[gps-camera]">
-        </a-box>
+        <!-- Kita menggunakan Wrapper untuk titik GPS-nya -->
+        <a-entity gps-entity-place="latitude: -8.221436798254762; longitude: 114.36766775848618;">
+            <!-- Objek digeser Y=2 (ke atas 2m) dan Z=-15 (dijauhkan 15 meter dari titik asli) agar tidak menutupi wajah / layar saat user berdiri tepat di koordinat tersebut -->
+            <a-box 
+                id="my-image" 
+                src="assets/poster.jpg" 
+                class="clickable" 
+                gesture-handler="minScale: 1; maxScale: 10"
+                width="3" height="4" depth="0.1"
+                position="0 2 -15"
+                look-at="[gps-camera]">
+            </a-box>
+        </a-entity>
 
         <!-- Kamera GPS -->
         <a-camera gps-camera rotation-reader></a-camera>
