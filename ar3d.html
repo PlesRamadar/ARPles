@@ -24,12 +24,13 @@
         id="scene">
 
         <!-- 
-            Catatan: Jika ukuran file .glb Anda kecil (di bawah 10 MB), Anda dapat 
-            memuatnya menggunakan <a-assets> untuk preload. Jika ukurannya besar,
-            sebaiknya panggil langsung lewat url() di entitas agar tidak memblokir kamera.
+            PENTING: Karena ukuran model 3D sangat besar (213 MB), 
+            kita tidak memuatnya di dalam <a-assets> agar tidak memblokir kamera.
+            Kamera akan menyala lebih dulu, dan model beserta materialnya dimuat asinkron.
         -->
         <!-- <a-assets>
-            <a-asset-item id="model-glb" src="assets/3d/model.glb"></a-asset-item>
+            <a-asset-item id="model-obj" src="assets/3d/model.obj"></a-asset-item>
+            <a-asset-item id="model-mtl" src="assets/3d/model.mtl"></a-asset-item>
         </a-assets> -->
 
         <!-- Kursor disesuaikan agar fuse: false (klik instan) untuk sentuhan layar HP -->
@@ -38,10 +39,10 @@
         <!-- Kita menggunakan Wrapper untuk titik GPS-nya -->
         <a-entity gps-entity-place="latitude: -8.221436798254762; longitude: 114.36766775848618;">
 
-            <!-- Objek 3D .glb ditaruh 15 meter di depan agar tidak menutupi kamera -->
-            <!-- Kita memanggil file langsung dengan url() agar proses muat asinkron -->
+            <!-- Objek 3D .obj ditaruh 15 meter di depan agar tidak menutupi kamera -->
+            <!-- Kita memanggil file obj dan mtl langsung dengan url() agar proses muat asinkron -->
             <a-entity id="my-3d-object" class="clickable" gesture-handler="minScale: 0.1; maxScale: 10"
-                gltf-model="url(assets/3d/model.glb)" scale="1 1 1" position="0 0 -15" look-at="[gps-camera]">
+                obj-model="obj: url(assets/3d/model.obj); mtl: url(assets/3d/model.mtl)" scale="1 1 1" position="0 0 -15" look-at="[gps-camera]">
             </a-entity>
         </a-entity>
 
