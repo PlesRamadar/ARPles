@@ -23,12 +23,14 @@
     <a-scene vr-mode-ui="enabled: false" embedded arjs="sourceType: webcam; debugUIEnabled: false;" gesture-detector
         id="scene">
 
-        <!-- Preload 3D Model Asset -->
-        <a-assets>
-            <a-asset-item id="model-obj" src="assets/3d/model.obj"></a-asset-item>
-            <!-- Opsional: Jika Anda memiliki file material warnanya (.mtl) -->
-            <!-- <a-asset-item id="model-mtl" src="assets/model.mtl"></a-asset-item> -->
-        </a-assets>
+        <!-- 
+            Catatan: Jika ukuran file .glb Anda kecil (di bawah 10 MB), Anda dapat 
+            memuatnya menggunakan <a-assets> untuk preload. Jika ukurannya besar,
+            sebaiknya panggil langsung lewat url() di entitas agar tidak memblokir kamera.
+        -->
+        <!-- <a-assets>
+            <a-asset-item id="model-glb" src="assets/3d/model.glb"></a-asset-item>
+        </a-assets> -->
 
         <!-- Kursor disesuaikan agar fuse: false (klik instan) untuk sentuhan layar HP -->
         <a-entity cursor="fuse: false; rayOrigin: mouse;" raycaster="objects: .clickable"></a-entity>
@@ -36,10 +38,10 @@
         <!-- Kita menggunakan Wrapper untuk titik GPS-nya -->
         <a-entity gps-entity-place="latitude: -8.221436798254762; longitude: 114.36766775848618;">
 
-            <!-- Objek 3D .obj ditaruh 15 meter di depan agar tidak menutupi kamera -->
-            <!-- Jika Anda punya file .mtl, ubah atributnya menjadi obj-model="obj: #model-obj; mtl: #model-mtl" -->
+            <!-- Objek 3D .glb ditaruh 15 meter di depan agar tidak menutupi kamera -->
+            <!-- Kita memanggil file langsung dengan url() agar proses muat asinkron -->
             <a-entity id="my-3d-object" class="clickable" gesture-handler="minScale: 0.1; maxScale: 10"
-                obj-model="obj: #model-obj;" scale="1 1 1" position="0 0 -15" look-at="[gps-camera]">
+                gltf-model="url(assets/3d/model.glb)" scale="1 1 1" position="0 0 -15" look-at="[gps-camera]">
             </a-entity>
         </a-entity>
 
